@@ -1,6 +1,6 @@
 # Update 加油 ("jiā yóu") Events
 
-Google Apps Script for updating events. Modify as needed.
+Google Apps Script for batch updating events. Modify as needed.
 
 ## Getting Started
 
