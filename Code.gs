@@ -2,6 +2,7 @@
 
 var myNewQuery = "New Meeting"; // Query ignores any extra spacing
 var myNewTitle = "Updated Meeting";
+var myLocation = "Updated location";
 var myNewDescription = "Updated agenda";
 var myNewStartTime = [9, 0]; // Means 9:00
 var myNewEndTime = [10, 0]; // Means 10:00
@@ -48,6 +49,7 @@ function updateEvents() {
 
     // Set the new details for the event
     event.setTitle(myNewTitle);
+    event.setLocation(myLocation);
     event.setDescription(myNewDescription);
     var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myNewStartTime[0], myNewStartTime[1]);
     var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myNewEndTime[0], myNewEndTime[1]);
