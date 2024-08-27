@@ -14,7 +14,7 @@ var myNewEndTime = [10, 0]; // Means 10:00, use 24-hour time format
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
 function updateEvents() {
-  var calendarName = "JIA YOU";
+  var calendarName = "JIA YOU"; // change name to update events on an alternate calendar
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
