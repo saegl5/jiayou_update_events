@@ -4,8 +4,8 @@ var myNewQuery = "New Meeting"; // Query ignores any extra spacing
 var myNewTitle = "Updated Meeting";
 var myLocation = "Updated location";
 var myNewDescription = "Updated agenda";
-var myNewStartTime = [9, 0]; // Means 9:00
-var myNewEndTime = [10, 0]; // Means 10:00
+var myNewStartTime = [9, 0]; // Means 9:00, use 24-hour time format
+var myNewEndTime = [10, 0]; // Means 10:00, use 24-hour time format
 
 
 
