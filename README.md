@@ -2,6 +2,10 @@
 
 Google Apps Script for batch updating events. Modify as needed.
 
+## Visual Example
+
+<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Event titles changed from "New Meeting" to "Updated Meeting," and start times changed from 10am to 9am.
+
 ## Getting Started
 
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
