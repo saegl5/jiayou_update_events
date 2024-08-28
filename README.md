@@ -4,7 +4,7 @@ Google Apps Script for batch updating events. Modify as needed.
 
 ## Visual Example
 
-<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Event titles changed from "New Meeting" to "Updated Meeting," and start times changed from 10am to 9am.
+<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Event titles changed from "New Meeting" to "Updated Meeting," and start times changed from 10am to 9am. (See [here](https://github.com/saegl5/jiayou_create_events) how the events appeared before updating them.)
 
 ## Getting Started
 
