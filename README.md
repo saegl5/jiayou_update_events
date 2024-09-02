@@ -8,22 +8,23 @@ CAUTION: Event details will be overwritten.
 
 ## Visual Example
 
+<img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="800"><br>Form for updating "JIA YOU" events.
+
 <img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Event titles changed from "New Meeting" to "Updated Meeting," and start times changed from 10 AM to 9 AM. (See [here](https://github.com/saegl5/jiayou_add_events) how the events appeared before updating them.)
 
 ## Getting Started
 
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
-2. Copy and paste [the script](./Code.gs) into the editor.
-3. Modify the calendar name. (By default, it is "JIA YOU." Recommended, if you had created events on an alternate calender.  ***Must name it differently from the owner name, otherwise the script will not update events.***)
-4. Modify the search query. (By default, it is "New Meeting." Specifically, `myNewQuery = "New Meeting";`)
-5. Modify the events' title, location, description, start time, and end time. (By default, events are newly titled "Updated Meeting," located at "Updated location," described as "Updated agenda," start at 9 AM, and end at 10 AM.)
-6. Confine the search by inputting an additional query.
-7. Confine the date range by inputting a start date and end date.
-8. Save and run the script. (Requires permission to make changes to events and authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
+2. Copy and paste [the script](./Code.gs) into the editor, and save the file.
+3. Create an HTML file, and name it "Index."
+4. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
+5. Deploy the project as a Web app, and open the assigned URL.
+6. Modify the calendar name, search query, events' title, location, description, start time, and end time. (Modifying the calendar name is recommended, if you had created events on an alternate calendar. ***Must name the calendar differently from the owner name, otherwise the script will not update events.***)
+7. Press submit. (Requires permission to make changes to events and authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
-### Web App
+## Known Issue
 
-To deploy the project as a web app, please consult the [development branch](https://github.com/saegl5/jiayou_update_events/tree/development).
+Deploying the project as a Web app should, but does not always, grant the app authorization. You may need to run the script manually, then re-open the assigned URL.
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
