@@ -15,5 +15,9 @@ Google Apps Script for batch updating events. Modify as needed.
 5. Modify the events' title, location, description, start time, and end time. (By default, events are newly titled "Updated Meeting," located at "Updated location," described as "Updated agenda," start at 9am, and end at 10am.)
 6. Save and run the script. (Requires permission to make changes to events and authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
+### Web App
+
+To deploy the project as a web app, please consult the [development branch](https://github.com/saegl5/jiayou_update_events/tree/development).
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
