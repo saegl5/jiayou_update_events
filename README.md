@@ -24,7 +24,7 @@ CAUTION: Event details will be overwritten.
 
 ## Known Issue
 
-Deploying the project as a Web app should, but does not always, grant the app authorization. You may need to run the script manually, then re-open the assigned URL.
+- [ ] Deploying the project as a Web app should, but does not always, grant the app authorization. You may need to run the script manually, then re-open the assigned URL. **(still investigating)**
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
