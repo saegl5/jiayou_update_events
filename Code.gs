@@ -31,11 +31,11 @@ function updateEvents(calendarName, query, title, location, description, startTi
   var events = calendar.getEvents(now, oneYearFromNow, {search: query});
   
   // Check if times are null
-  if (myNewStartTime === "" && myNewEndTime === "") {
-    myNewStartTime = "00:00";
-    myNewEndTime = "24:00";
+  if (startTime === "" && endTime === "") {
+    startTime = "00:00";
+    endTime = "24:00";
   }
-  
+
   // Split strings into lists of hours and minutes
   startTime = startTime.split(':');
   startTime[0] = parseInt(startTime[0]);
