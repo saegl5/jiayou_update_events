@@ -38,6 +38,12 @@ function updateEvents() {
   // Search for events with title "New Meeting" between now and one year from now
   var events = calendar.getEvents(now, oneYearFromNow, {search: query});
   
+  // Check if times are null
+  if (myNewStartTime === "" && myNewEndTime === "") {
+    myNewStartTime = "00:00";
+    myNewEndTime = "24:00";
+  }
+  
   // Split strings into lists of hours and minutes
   myNewStartTime = myNewStartTime.split(':');
   myNewStartTime[0] = parseInt(myNewStartTime[0]);
