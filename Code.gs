@@ -5,8 +5,8 @@ var myNewQuery = "New Meeting"; // Query ignores any extra spacing
 var myNewTitle = "Updated Meeting";
 var myLocation = "Updated location";
 var myNewDescription = "Updated agenda";
-var myNewStartTime = [9, 0]; // Means 9:00, use 24-hour time format
-var myNewEndTime = [10, 0]; // Means 10:00, use 24-hour time format
+var myNewStartTime = "9:00"; // Use 24-hour time format
+var myNewEndTime = "10:00"; // Use 24-hour time format
 
 
 
@@ -37,6 +37,15 @@ function updateEvents() {
   
   // Search for events with title "New Meeting" between now and one year from now
   var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  
+  // Split strings into lists of hours and minutes
+  myNewStartTime = myNewStartTime.split(':');
+  myNewStartTime[0] = parseInt(myNewStartTime[0]);
+  myNewStartTime[1] = parseInt(myNewStartTime[1]);
+
+  myNewEndTime = myNewEndTime.split(':');
+  myNewEndTime[0] = parseInt(myNewEndTime[0]);
+  myNewEndTime[1] = parseInt(myNewEndTime[1]);  
   
   // Loop through each event found
   events.forEach(function(event) {
