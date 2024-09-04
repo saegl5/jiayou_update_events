@@ -1,4 +1,5 @@
 // Modify the calendar name, search query, event title, location, description, start time, and end time as desired
+// CAUTION: Event details will be overwritten.
 
 var myCalendarName = "JIA YOU"; // change name to update events on an alternate calendar, must name it differently from the owner name
 var myNewQuery = "New Meeting"; // Query ignores any extra spacing
