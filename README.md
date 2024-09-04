@@ -23,5 +23,9 @@ CAUTION: Event details will be overwritten.
 7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (Modifying the calendar name is recommended, if you had created events on an alternate calendar. ***Must name the calendar differently from the owner name, otherwise the script will not update events.***)
 8. Press submit. (Requires permission to make changes to events and another authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
+## Known Issue
+
+- [] Cannot confine the date range. **(feature coming soon!)**
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
