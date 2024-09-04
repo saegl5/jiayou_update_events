@@ -5,8 +5,9 @@ var myNewQuery = "New Meeting"; // Query ignores any extra spacing
 var myNewTitle = "Updated Meeting";
 var myLocation = "Updated location";
 var myNewDescription = "Updated agenda";
-var myNewStartTime = "9:00"; // Use 24-hour time format
-var myNewEndTime = "10:00"; // Use 24-hour time format
+var myNewStartTime = "9:00 AM";
+var myNewEndTime = "10:00 AM";
+// Accepted time formats: 12-hour am/pm, 24-hour
 
 
 
