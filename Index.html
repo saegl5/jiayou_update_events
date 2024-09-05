@@ -102,7 +102,7 @@
         document.getElementById("wait").innerHTML = "Please wait...";
 
         google.script.run.withSuccessHandler(function(response) {
-          alert(response); // Displays a success message
+          document.getElementById('wait').innerHTML = response; // Displays a success message when completed
         }).updateEvents(calendarName, query, title, location, description, start, end, startTime, endTime);
       });
     </script>
