@@ -8,7 +8,7 @@ function doGet() {
   return HtmlService.createHtmlOutputFromFile('Index')
 }
 
-function updateEvents(calendarName, query, title, location, description, startTime, endTime) {
+function updateEvents(calendarName, query, title, location, description, start, end, startTime, endTime) {
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
@@ -22,13 +22,25 @@ function updateEvents(calendarName, query, title, location, description, startTi
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
 
-  // Set the search parameters
-  var now = new Date();
-  var oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(now.getFullYear() + 1);
-  
-  // Search for events with title "New Meeting" between now and one year from now
-  var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  // Check for null dates
+  if (start !== "" && end !== "") {
+    // Set the search parameters
+    start = new Date(start);
+    end = new Date(end); // excluded from search
+    end.setDate(end.getDate() + 1); // include end date in search
+
+    // Search for events with title "New Meeting" between start and end dates
+    var events = calendar.getEvents(start, end, {search: query});
+  }
+  else {
+    // Set the search parameters
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    
+    // Search for events with title "New Meeting" between now and one year from now
+    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  }
   
   // Check if times are null
   if (startTime === "" && endTime === "") {

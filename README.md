@@ -21,11 +21,8 @@ CAUTION: Event details will be overwritten.
 5. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
 6. Deploy the project as a Web app, and open the assigned URL.
 7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (Modifying the calendar name is recommended, if you had created events on an alternate calendar. ***Must name the calendar differently from the owner name, otherwise the app will not update events.***)
-8. Press submit. (Requires permission to make changes to events and another authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
-
-## Known Issue
-
-- [] Cannot confine the date range. **(feature coming soon!)**
+8. Confine the date range by inputting a start date and end date.
+9. Press submit. (Requires permission to make changes to events and another authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
