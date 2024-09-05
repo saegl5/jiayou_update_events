@@ -1,6 +1,6 @@
 # Update 加油 ("jiā yóu") Events
 
-Google Apps Script for batch updating events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the script. These events are not recurring events, so without a batch script one would need to update these events manually.
+Google Web app for batch updating events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. These events are not recurring events, so without a batch script one would need to update these events manually.
 
 ```
 CAUTION: Event details will be overwritten.
@@ -20,7 +20,7 @@ CAUTION: Event details will be overwritten.
 4. Create an HTML file, and name it "Index."
 5. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
 6. Deploy the project as a Web app, and open the assigned URL.
-7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (Modifying the calendar name is recommended, if you had created events on an alternate calendar. ***Must name the calendar differently from the owner name, otherwise the script will not update events.***)
+7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (Modifying the calendar name is recommended, if you had created events on an alternate calendar. ***Must name the calendar differently from the owner name, otherwise the app will not update events.***)
 8. Press submit. (Requires permission to make changes to events and another authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
 ## Known Issue
