@@ -6,8 +6,11 @@ var myNewQuery = "New Meeting"; // Query ignores any extra spacing
 var myNewTitle = "Updated Meeting";
 var myLocation = "Updated location";
 var myNewDescription = "Updated agenda";
+var myNewStart = ""; // Confine date range
+var myNewEnd = ""; // Confine date range
 var myNewStartTime = "9:00 AM";
 var myNewEndTime = "10:00 AM";
+// Accepted date formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY
 // Accepted time formats: 12-hour am/pm, 24-hour
 
 
@@ -31,14 +34,27 @@ function updateEvents() {
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
 
-  // Set the search parameters
-  var query = myNewQuery;
-  var now = new Date();
-  var oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(now.getFullYear() + 1);
-  
-  // Search for events with title "New Meeting" between now and one year from now
-  var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  // Check for null dates
+  if (myNewStart !== "" && myNewEnd !== "") {
+    // Set the search parameters
+    var query = myNewQuery;
+    myNewStart = new Date(myNewStart);
+    myNewEnd = new Date(myNewEnd); // excluded from search
+    myNewEnd.setDate(myNewEnd.getDate() + 1); // include end date in search
+
+    // Search for events with title "New Meeting" between start and end dates
+    var events = calendar.getEvents(myNewStart, myNewEnd, {search: query});
+  }
+  else {
+    // Set the search parameters
+    var query = myNewQuery;
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    
+    // Search for events with title "New Meeting" between now and one year from now
+    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  }
   
   // Check if times are null
   if (myNewStartTime === "" && myNewEndTime === "") {
