@@ -1,6 +1,6 @@
 # Update 加油 ("jiā yóu") Events
 
-Google Apps Script for batch updating events. Modify as needed, and back up your calendars before you run the script.
+Google Apps Script for batch updating events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the script. These events are not recurring events, so without a batch script one would need to update these events manually.
 
 ```
 CAUTION: Event details will be overwritten.
