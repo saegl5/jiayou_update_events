@@ -5,17 +5,29 @@
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('Index')
+  return HtmlService.createHtmlOutputFromFile("Index");
 }
 
-function updateEvents(calendarName, query, title, location, description, start, end, startTime, endTime) {
-  var calendars = CalendarApp.getAllCalendars();  // Get all calendars
-  
+function updateEvents(
+  calendarName,
+  query,
+  title,
+  location,
+  description,
+  start,
+  end,
+  startTime,
+  endTime
+) {
+  var calendars = CalendarApp.getAllCalendars(); // Get all calendars
+
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      Logger.log("Calendar ID for \"" + calendarName + "\": " + calendars[i].getId());
-      var calendarId = String(calendars[i].getId());  // Assign the calendar ID
+      Logger.log(
+        'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
+      );
+      var calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
 
@@ -30,18 +42,17 @@ function updateEvents(calendarName, query, title, location, description, start, 
     end.setDate(end.getDate() + 1); // include end date in search
 
     // Search for events with title "New Meeting" between start and end dates
-    var events = calendar.getEvents(start, end, {search: query});
-  }
-  else {
+    var events = calendar.getEvents(start, end, { search: query });
+  } else {
     // Set the search parameters
     var now = new Date();
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
-    
+
     // Search for events with title "New Meeting" between now and one year from now
-    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+    var events = calendar.getEvents(now, oneYearFromNow, { search: query });
   }
-  
+
   // Check if times are null
   if (startTime === "" && endTime === "") {
     startTime = "00:00";
@@ -49,16 +60,16 @@ function updateEvents(calendarName, query, title, location, description, start, 
   }
 
   // Split strings into lists of hours and minutes
-  startTime = startTime.split(':');
+  startTime = startTime.split(":");
   startTime[0] = parseInt(startTime[0]);
   startTime[1] = parseInt(startTime[1]);
 
-  endTime = endTime.split(':');
+  endTime = endTime.split(":");
   endTime[0] = parseInt(endTime[0]);
   endTime[1] = parseInt(endTime[1]);
-  
+
   // Loop through each event found
-  events.forEach(function(event) {
+  events.forEach(function (event) {
     var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
@@ -83,13 +94,24 @@ function updateEvents(calendarName, query, title, location, description, start, 
     event.setTitle(title);
     event.setLocation(location);
     event.setDescription(description);
-    var dateStartTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), startTime[0], startTime[1]);
-    var dateEndTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), endTime[0], endTime[1]);
+    var dateStartTime = new Date(
+      eventDate.getFullYear(),
+      eventDate.getMonth(),
+      eventDate.getDate(),
+      startTime[0],
+      startTime[1]
+    );
+    var dateEndTime = new Date(
+      eventDate.getFullYear(),
+      eventDate.getMonth(),
+      eventDate.getDate(),
+      endTime[0],
+      endTime[1]
+    );
     event.setTime(new Date(dateStartTime), new Date(dateEndTime));
 
     // Log which events were updated
     Logger.log("Updated an event on " + dateStartTime + ".");
-
   });
   return "Events updated!";
 }
