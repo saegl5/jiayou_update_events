@@ -72,23 +72,13 @@ function updateEvents(
   events.forEach(function (event) {
     var eventDate = event.getStartTime();
 
-      // Extract just the date part as a string
-      eventDate = eventDate.toDateString();
+    // Extract just the date part as a string
+    eventDate = eventDate.toDateString();
 
-      // Update details of events titled "New Meeting" on any letter day
-      setDetails(
-        event,
-        eventDate,
-        myNewTitle,
-        myLocation,
-        myNewDescription,
-        myNewStartTime,
-        myNewEndTime
-      );
-    });
-  }
-  return "Events updated!";
-}
+    // Not storing the date in a dictionary
+
+    // Cast "eventDate" as a function
+    eventDate = new Date(eventDate);
 
     // Set the new details for the event
     event.setTitle(title);
