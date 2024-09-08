@@ -8,10 +8,10 @@ var myLocation = "Updated location";
 var myNewDescription = "Updated agenda";
 var myNewStart = ""; // Confine date range
 var myNewEnd = ""; // Confine date range
-var myNewStartTime = "9:00 AM";
-var myNewEndTime = "10:00 AM";
+var myNewStartTime = "9:00";
+var myNewEndTime = "10:00";
 // Accepted date formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY
-// Accepted time formats: 12-hour am/pm, 24-hour
+// Accepted time format: 24-hour
 
 
 
