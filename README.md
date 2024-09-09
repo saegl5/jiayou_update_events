@@ -17,8 +17,9 @@ CAUTION: Event details will be overwritten.
 3. Modify the calendar name. (By default, it is "JIA YOU." Recommended, if you had created events on an alternate calender.  ***Must name it differently from the owner name, otherwise the script will not update events.***)
 4. Modify the search query. (By default, it is "New Meeting." Specifically, `myNewQuery = "New Meeting";`)
 5. Modify the events' title, location, description, start time, and end time. (By default, events are newly titled "Updated Meeting," located at "Updated location," described as "Updated agenda," start at 9 AM, and end at 10 AM.)
-6. Confine the date range by inputting a start date and end date.
-7. Save and run the script. (Requires permission to make changes to events and authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
+6. Confine the search by inputting an additional query.
+7. Confine the date range by inputting a start date and end date.
+8. Save and run the script. (Requires permission to make changes to events and authorization. ***Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
 ### Web App
 
