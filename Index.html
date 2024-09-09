@@ -49,6 +49,13 @@
       <!-- prefilled for clarity -->
       </br>
 
+      <label for="queryAdd">Additional search query: (if any)</label>
+      <input type="text" id="queryAdd" name="queryAdd" value="J Day" placeholder="Optional">
+      <!-- Query ignores any extra spacing -->
+      <!-- Input query to confine search -->
+      <!-- prefilled for clarity -->
+      </br>
+
       <label for="title">Title:</label>
       <input type="text" id="title" name="title" value="Updated Meeting" required>
       <!-- prefilled for convenience -->
@@ -97,6 +104,7 @@
 
         var calendarName = document.getElementById('calendarName').value;
         var query = document.getElementById('query').value;
+        var queryAdd = document.getElementById('queryAdd').value;
         var title = document.getElementById('title').value;
         var location = document.getElementById('location').value;
         var description = document.getElementById('description').value;
@@ -108,7 +116,7 @@
 
         google.script.run.withSuccessHandler(function(response) {
           document.getElementById('wait').innerHTML = response; // Displays a success message when completed
-        }).updateEvents(calendarName, query, title, location, description, start, end, startTime, endTime);
+        }).updateEvents(calendarName, query, queryAdd, title, location, description, start, end, startTime, endTime);
       });
     </script>
   </body>

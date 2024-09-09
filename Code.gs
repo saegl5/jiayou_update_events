@@ -11,6 +11,7 @@ function doGet() {
 function updateEvents(
   calendarName,
   query,
+  queryAdd,
   title,
   location,
   description,
@@ -43,6 +44,11 @@ function updateEvents(
 
     // Search for events with title "New Meeting" between start and end dates
     var events = calendar.getEvents(start, end, { search: query });
+
+    // Check additional query
+    if (queryAdd !== "") {
+      var eventsAdd = calendar.getEvents(start, end, { search: queryAdd });
+    }
   } else {
     // Set the search parameters
     var now = new Date();
@@ -51,6 +57,13 @@ function updateEvents(
 
     // Search for events with title "New Meeting" between now and one year from now
     var events = calendar.getEvents(now, oneYearFromNow, { search: query });
+
+    // Check additional query
+    if (queryAdd !== "") {
+      var eventsAdd = calendar.getEvents(now, oneYearFromNow, {
+        search: queryAdd,
+      });
+    }
   }
 
   // Check if times are null
@@ -68,40 +81,88 @@ function updateEvents(
   endTime[0] = parseInt(endTime[0]);
   endTime[1] = parseInt(endTime[1]);
 
-  // Loop through each event found
-  events.forEach(function (event) {
-    var eventDate = event.getStartTime();
+  if (queryAdd !== "") {
+    // Loop through each event found
+    events.forEach(function (event) {
+      var eventDate = event.getStartTime();
 
-    // Extract just the date part as a string
-    eventDate = eventDate.toDateString();
+      // Extract just the date part as a string
+      var eventDate = eventDate.toDateString();
 
-    // Not storing the date in a dictionary
+      // Loop through each event found, again
+      eventsAdd.forEach(function (eventAdd) {
+        var eventDateAdd = eventAdd.getStartTime();
 
-    // Cast "eventDate" as a function
-    eventDate = new Date(eventDate);
+        // Extract just the date part as a string, again
+        var eventDateAdd = eventDateAdd.toDateString();
 
-    // Set the new details for the event
-    event.setTitle(title);
-    event.setLocation(location);
-    event.setDescription(description);
-    var dateStartTime = new Date(
-      eventDate.getFullYear(),
-      eventDate.getMonth(),
-      eventDate.getDate(),
-      startTime[0],
-      startTime[1]
-    );
-    var dateEndTime = new Date(
-      eventDate.getFullYear(),
-      eventDate.getMonth(),
-      eventDate.getDate(),
-      endTime[0],
-      endTime[1]
-    );
-    event.setTime(new Date(dateStartTime), new Date(dateEndTime));
+        // Find matches
+        if (eventDate === eventDateAdd) {
+          // Update details of events titled "New Meeting" on "J Day"
+          setDetails(
+            event,
+            eventDate,
+            title,
+            location,
+            description,
+            startTime,
+            endTime
+          );
+        }
+      });
+    });
+  } else {
+    // Loop through each event found
+    events.forEach(function (event) {
+      var eventDate = event.getStartTime();
 
-    // Log which events were updated
-    Logger.log("Updated an event on " + dateStartTime + ".");
-  });
+      // Extract just the date part as a string
+      var eventDate = eventDate.toDateString();
+
+      // Update details of events titled "New Meeting" on any letter day
+      setDetails(
+        event,
+        eventDate,
+        title,
+        location,
+        description,
+        startTime,
+        endTime
+      );
+    });
+  }
   return "Events updated!";
+}
+
+function setDetails(
+  event,
+  eventDate,
+  title,
+  location,
+  description,
+  startTime,
+  endTime
+) {
+  eventDate = new Date(eventDate); // Cast "eventDate" as a function
+  event.setTitle(title);
+  event.setLocation(location);
+  event.setDescription(description);
+  var dateStartTimeAdd = new Date(
+    eventDate.getFullYear(),
+    eventDate.getMonth(),
+    eventDate.getDate(),
+    startTime[0],
+    startTime[1]
+  );
+  var dateEndTimeAdd = new Date(
+    eventDate.getFullYear(),
+    eventDate.getMonth(),
+    eventDate.getDate(),
+    endTime[0],
+    endTime[1]
+  );
+  event.setTime(new Date(dateStartTimeAdd), new Date(dateEndTimeAdd));
+
+  // Log which events were updated
+  Logger.log("Updated an event on " + dateStartTimeAdd + ".");
 }
