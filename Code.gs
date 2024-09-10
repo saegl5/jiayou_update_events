@@ -83,14 +83,14 @@ function updateEvents(
 
   if (queryAdd !== "") {
     // Loop through each event found
-    events.forEach(function (event) {
+    events.forEach(function(event) {
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
       var eventDate = eventDate.toDateString();
 
       // Loop through each event found, again
-      eventsAdd.forEach(function (eventAdd) {
+      eventsAdd.forEach(function(eventAdd) {
         var eventDateAdd = eventAdd.getStartTime();
 
         // Extract just the date part as a string, again
@@ -113,7 +113,7 @@ function updateEvents(
     });
   } else {
     // Loop through each event found
-    events.forEach(function (event) {
+    events.forEach(function(event) {
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
