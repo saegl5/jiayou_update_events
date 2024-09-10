@@ -147,22 +147,22 @@ function setDetails(
   event.setTitle(title);
   event.setLocation(location);
   event.setDescription(description);
-  var dateStartTimeAdd = new Date(
+  var dateStartTime = new Date(
     eventDate.getFullYear(),
     eventDate.getMonth(),
     eventDate.getDate(),
     startTime[0],
     startTime[1]
   );
-  var dateEndTimeAdd = new Date(
+  var dateEndTime = new Date(
     eventDate.getFullYear(),
     eventDate.getMonth(),
     eventDate.getDate(),
     endTime[0],
     endTime[1]
   );
-  event.setTime(new Date(dateStartTimeAdd), new Date(dateEndTimeAdd));
+  event.setTime(new Date(dateStartTime), new Date(dateEndTime));
 
   // Log which events were updated
-  Logger.log("Updated an event on " + dateStartTimeAdd + ".");
+  Logger.log("Updated an event on " + dateStartTime + ".");
 }
