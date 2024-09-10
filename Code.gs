@@ -12,11 +12,11 @@ function updateEvents(
   calendarName,
   query,
   queryAdd,
+  start,
+  end,
   title,
   location,
   description,
-  start,
-  end,
   startTime,
   endTime
 ) {
