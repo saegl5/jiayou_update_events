@@ -87,14 +87,14 @@ function updateEvents(
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
-      var eventDate = eventDate.toDateString();
+      eventDate = eventDate.toDateString();
 
       // Loop through each event found, again
       eventsAdd.forEach(function(eventAdd) {
         var eventDateAdd = eventAdd.getStartTime();
 
         // Extract just the date part as a string, again
-        var eventDateAdd = eventDateAdd.toDateString();
+        eventDateAdd = eventDateAdd.toDateString();
 
         // Find matches
         if (eventDate === eventDateAdd) {
@@ -117,7 +117,7 @@ function updateEvents(
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
-      var eventDate = eventDate.toDateString();
+      eventDate = eventDate.toDateString();
 
       // Update details of events titled "New Meeting" on any letter day
       setDetails(
