@@ -66,6 +66,15 @@ function updateEvents(
     }
   }
 
+  // Check if query finds no events
+  if (events == []) {
+    return "No \"" + query + "\" events exist!";
+  }
+  // Check if queryAdd finds no events
+  if (eventsAdd == []) {
+    return "No \"" + queryAdd + "\" events exist!";
+  }
+  
   // Check if times are null
   if (startTime === "" && endTime === "") {
     startTime = "00:00";
