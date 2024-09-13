@@ -21,6 +21,7 @@ function updateEvents(
   endTime
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
+  var calendarId = ""; // Initially null
 
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
@@ -28,9 +29,14 @@ function updateEvents(
       Logger.log(
         'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
       );
-      var calendarId = String(calendars[i].getId()); // Assign the calendar ID
+      calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
+
+  // Check if loop finds no calendar
+  if (calendarId === "") {
+    return "No \"" + calendarName + "\" calendar exists!";
+  }  
 
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
