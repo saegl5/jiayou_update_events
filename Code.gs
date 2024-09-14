@@ -73,13 +73,16 @@ function updateEvents(
   }
 
   // Check if query finds no events
-  if (events == []) {
+  if (events.length === 0) {
     return "No \"" + query + "\" events exist!";
   }
   // Check if queryAdd finds no events
-  if (eventsAdd == []) {
+  if (queryAdd !== "" && eventsAdd.length === 0) {
     return "No \"" + queryAdd + "\" events exist!";
   }
+
+  // Check if query and queryAdd find no matching events below
+  var match = "no";
   
   // Check if times are null
   if (startTime === "" && endTime === "") {
@@ -123,9 +126,16 @@ function updateEvents(
             startTime,
             endTime
           );
+          match = "yes";
         }
       });
     });
+    if (match === "no") {
+      return "No \"" + query + "\" and \"" + queryAdd + "\" events match!";
+    }
+    else {
+      return "Events updated!";
+    }
   } else {
     // Loop through each event found
     events.forEach(function(event) {
@@ -145,8 +155,8 @@ function updateEvents(
         endTime
       );
     });
+    return "Events updated!";
   }
-  return "Events updated!";
 }
 
 function setDetails(
