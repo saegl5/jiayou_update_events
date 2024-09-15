@@ -171,7 +171,14 @@ function setDetails(
   eventDate = new Date(eventDate); // Cast "eventDate" as a function
   event.setTitle(title);
   event.setLocation(location);
-  event.setDescription(description);
+
+  // Check if description is a link
+  if (description.includes("http")) {
+    event.setDescription('<a href="' + (description) + '" target="_blank" >Agenda</a>');
+  } else {
+    event.setDescription(description);
+  }
+  
   var dateStartTime = new Date(
     eventDate.getFullYear(),
     eventDate.getMonth(),
