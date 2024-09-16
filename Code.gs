@@ -18,7 +18,8 @@ function updateEvents(
   location,
   description,
   startTime,
-  endTime
+  endTime,
+  dryRun
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
   var calendarId = ""; // Initially null
@@ -26,9 +27,9 @@ function updateEvents(
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      Logger.log(
-        'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      );
+      // Logger.log(
+      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
+      // );
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
@@ -124,7 +125,8 @@ function updateEvents(
             location,
             description,
             startTime,
-            endTime
+            endTime,
+            dryRun
           );
           match = "yes";
         }
@@ -152,7 +154,8 @@ function updateEvents(
         location,
         description,
         startTime,
-        endTime
+        endTime,
+        dryRun
       );
     });
     return "Events updated!";
@@ -166,18 +169,24 @@ function setDetails(
   location,
   description,
   startTime,
-  endTime
+  endTime,
+  dryRun
 ) {
   eventDate = new Date(eventDate); // Cast "eventDate" as a function
-  event.setTitle(title);
-  event.setLocation(location);
 
-  // Check if description is a link
-  if (description.includes("http")) {
-    event.setDescription('<a href="' + (description) + '" target="_blank" >Agenda</a>');
-  } else {
-    event.setDescription(description);
+  if (!dryRun) {
+    event.setTitle(title);
+    event.setLocation(location);
   }
+
+  if (!dryRun) {
+    // Check if description is a link
+    if (description.includes("http")) {
+      event.setDescription('<a href="' + (description) + '" target="_blank" >Agenda</a>');
+    } else {
+      event.setDescription(description);
+    }
+  } 
   
   var dateStartTime = new Date(
     eventDate.getFullYear(),
@@ -193,7 +202,9 @@ function setDetails(
     endTime[0],
     endTime[1]
   );
-  event.setTime(new Date(dateStartTime), new Date(dateEndTime));
+  if (!dryRun) {
+    event.setTime(new Date(dateStartTime), new Date(dateEndTime));
+  }
 
   // Log which events were updated
   Logger.log("Updated an event on " + dateStartTime + ".");

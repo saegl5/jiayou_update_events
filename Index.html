@@ -12,12 +12,12 @@
         border-radius: 5px;
         background-color: Gainsboro;
       }
-      label, select, input {
+      select, input[type="text"], input[type="submit"] {
         display: block;
         margin-bottom: 0px;
         width: 100%;
         -webkit-box-sizing: border-box;
-        box-sizing: content-box; /* compatibility */
+        box-sizing: border-box; /* compatibility */
       }
       select, input, div {
         font-family: 'Courier New', Courier, monospace;
@@ -46,6 +46,9 @@
       }
       text[id="search"], text[id="settings"] {
         font-style: normal;
+      }
+      input[type="checkbox"] {
+        vertical-align: bottom;
       }
       input[type="submit"] {
         background-color: white;
@@ -136,6 +139,13 @@
 
       </br>
 
+      <div>
+        <input type="checkbox" id="dryRun" name="dryRun"/>
+        <label for="dryRun">Dry run</label>
+      </div>
+
+      </br>
+
       <input type="submit" value="Submit">
       <div id="wait">&nbsp;</div>
     </form>
@@ -156,12 +166,14 @@
         var description = document.getElementById('description').value;
         var startTime = document.getElementById('startTime').value;
         var endTime = document.getElementById('endTime').value;
+
+        var dryRun = document.getElementById('dryRun').checked;
         
         document.getElementById("wait").innerHTML = "Please wait...";
 
         google.script.run.withSuccessHandler(function(response) {
           document.getElementById('wait').innerHTML = response; // Displays a success message when completed
-        }).updateEvents(calendarName, query, queryAdd, start, end, title, location, description, startTime, endTime);
+        }).updateEvents(calendarName, query, queryAdd, start, end, title, location, description, startTime, endTime, dryRun);
       });
     </script>
   </body>

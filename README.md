@@ -23,7 +23,8 @@ CAUTION: Event details will be overwritten.
 7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (Modifying the calendar name is recommended, if you had created events on an alternate calendar. **_Must name the calendar differently from the owner name, otherwise the app will not update events._** If you input a URL for the description, text to display will be "Agenda.")
 8. Confine the search by inputting an additional query.
 9. Confine the date range by inputting a start date and end date.
-10. Press submit. (Requires permission to make changes to events and another authorization. **_Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
+10. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
+11. Press submit. (Requires permission to make changes to events and another authorization. **_Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
