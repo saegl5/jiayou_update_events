@@ -46,7 +46,8 @@ function updateEvents() {
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    return "No \"" + calendarName + "\" calendar exists!";
+    Logger.log("No \"" + calendarName + "\" calendar exists!");
+    return null;
   }
 
   // Access the calendar
@@ -89,11 +90,13 @@ function updateEvents() {
 
   // Check if query finds no events
   if (events.length === 0) {
-    return "No \"" + query + "\" events exist!";
+    Logger.log("No \"" + query + "\" events exist!");
+    return null;
   }
   // Check if queryAdd finds no events
   if (queryAdd !== "" && eventsAdd.length === 0) {
-    return "No \"" + queryAdd + "\" events exist!";
+    Logger.log("No \"" + queryAdd + "\" events exist!");
+    return null;
   }
 
   // Check if query and queryAdd find no matching events below
@@ -147,10 +150,12 @@ function updateEvents() {
       });
     });
     if (match === "no") {
-      return "No \"" + query + "\" and \"" + queryAdd + "\" events match!";
+      Logger.log("No \"" + query + "\" and \"" + queryAdd + "\" events match!");
+      return null;
     }
     else {
-      return "Events updated!";
+      Logger.log("Events updated!");
+      return null;
     }
   } else {
     // Loop through each event found
@@ -172,7 +177,8 @@ function updateEvents() {
         myNewDryRun
       );
     });
-    return "Events updated!";
+    Logger.log("Events updated!");
+    return null;
   }
 }
 
@@ -223,4 +229,5 @@ function setDetails(
 
   // Log which events were updated
   Logger.log("Updated an event on " + dateStartTime + ".");
+  return null;
 }
