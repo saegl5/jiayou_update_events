@@ -9,6 +9,7 @@ var myNewQueryAdd = "J Day"; // Input additional query to confine search, query 
 var myNewStart = ""; // Confine date range
 var myNewEnd = ""; // Confine date range
 // Accepted date formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY
+// Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time
 
 // Event settings
 var myNewTitle = "Updated Meeting";
