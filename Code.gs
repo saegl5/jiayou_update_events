@@ -13,6 +13,9 @@ var myNewEnd = ""; // Confine date range
 
 // Event settings
 var myNewTitle = "Updated Meeting";
+var myGuestsAdd = ""; // add a guest, comma-separated list of email addresses
+// send invitation emails manually
+var myGuestsDel = ""; // remove a guest, comma-separated list of email addresses, ignores guest if their email address is not found
 var myNewLocation = "Updated location";
 var myNewDescription = "Updated agenda"; // string or URL, if URL then text to display will be "Agenda"
 var myNewStartTime = "9:00";
@@ -101,7 +104,15 @@ function updateEvents() {
 
   // Check if query and queryAdd find no matching events below
   var match = "no";
-  
+
+  // Process each guest list
+  if (myGuestsAdd !== "") {
+    myGuestsAdd = myGuestsAdd.split(", ");
+  }
+  if (myGuestsDel !== "") {
+    myGuestsDel = myGuestsDel.split(", ");
+  }
+
   // Check if times are null
   if (myNewStartTime === "" && myNewEndTime === "") {
     myNewStartTime = "00:00";
@@ -139,6 +150,8 @@ function updateEvents() {
             event,
             eventDate,
             myNewTitle,
+            myGuestsAdd,
+            myGuestsDel,
             myNewLocation,
             myNewDescription,
             myNewStartTime,
@@ -170,6 +183,8 @@ function updateEvents() {
         event,
         eventDate,
         myNewTitle,
+        myGuestsAdd,
+        myGuestsDel,
         myNewLocation,
         myNewDescription,
         myNewStartTime,
@@ -187,6 +202,8 @@ function setDetails(
   event,
   eventDate,
   title,
+  guestsAdd,
+  guestsDel,
   location,
   description,
   startTime,
@@ -198,6 +215,18 @@ function setDetails(
   if (!dryRun) {
     event.setTitle(title);
     event.setLocation(location);
+  }
+
+  if (guestsAdd.length !== 0 && !dryRun) {
+    for (var l = 0; l < guestsAdd.length; l++) {
+      event.addGuest(String(guestsAdd[l]));
+    }
+  }
+
+  if (guestsDel.length !== 0 && !dryRun) {
+    for (var m = 0; m < guestsDel.length; m++) {
+      event.removeGuest(String(guestsDel[m]));
+    }
   }
 
   if (!dryRun) {
