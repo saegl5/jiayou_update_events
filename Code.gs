@@ -1,18 +1,24 @@
-// Modify the calendar name, search query, event title, location, description, myNewStart time, and myNewEnd time as desired
+// Update 加油 ("jiā yóu") Events
 // CAUTION: Event details will be overwritten.
 
+// Search parameters
 var myCalendarName = "JIA YOU"; // change name to update events on an alternate calendar, must name it differently from the owner name
-var myNewQuery = "New Meeting"; // Query ignores any extra spacing
-var myNewQueryAdd = "J Day"; // Query ignores any extra spacing, input additional query to confine search
-var myNewTitle = "Updated Meeting";
-var myLocation = "Updated location";
-var myNewDescription = "Updated agenda";
+var myNewQuery = "New Meeting"; // Event you want to update, query ignores any extra spacing
+var myNewQueryAdd = "J Day"; // Input additional query to confine search, query ignores any extra spacing
 var myNewStart = ""; // Confine date range
 var myNewEnd = ""; // Confine date range
+// Accepted date formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY
+
+// Event settings
+var myNewTitle = "Updated Meeting";
+var myNewLocation = "Updated location";
+var myNewDescription = "Updated agenda"; // string or URL, if URL then text to display will be "Agenda"
 var myNewStartTime = "9:00";
 var myNewEndTime = "10:00";
-// Accepted date formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY
 // Accepted time format: 24-hour
+var myNewDryRun = false; // test script before running it in production
+
+
 
 
 
@@ -22,14 +28,22 @@ var myNewEndTime = "10:00";
 
 function updateEvents() {
   var calendarName = myCalendarName;
-  var calendars = CalendarApp.getAllCalendars();  // Get all calendars
-  
+  var calendars = CalendarApp.getAllCalendars(); // Get all calendars
+  var calendarId = ""; // Initially null
+
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      Logger.log("Calendar ID for \"" + calendarName + "\": " + calendars[i].getId());
-      var calendarId = String(calendars[i].getId());  // Assign the calendar ID
+      // Logger.log(
+      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
+      // );
+      calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
+  }
+
+  // Check if loop finds no calendar
+  if (calendarId === "") {
+    return "No \"" + calendarName + "\" calendar exists!";
   }
 
   // Access the calendar
@@ -45,11 +59,11 @@ function updateEvents() {
     myNewEnd.setDate(myNewEnd.getDate() + 1); // include end date in search
 
     // Search for events with title "New Meeting" between start and end dates
-    var events = calendar.getEvents(myNewStart, myNewEnd, {search: query});
+    var events = calendar.getEvents(myNewStart, myNewEnd, { search: query });
 
     // Check additional query
     if (queryAdd !== "") {
-      var eventsAdd = calendar.getEvents(myNewStart, myNewEnd, {search: queryAdd});
+      var eventsAdd = calendar.getEvents(myNewStart, myNewEnd, { search: queryAdd });
     }
   } else {
     // Set the search parameters
@@ -60,29 +74,43 @@ function updateEvents() {
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
     // Search for events with title "New Meeting" between now and one year from now
-    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+    var events = calendar.getEvents(now, oneYearFromNow, { search: query });
 
     // Check additional query
     if (queryAdd !== "") {
-      var eventsAdd = calendar.getEvents(now, oneYearFromNow, {search: queryAdd});
+      var eventsAdd = calendar.getEvents(now, oneYearFromNow, {
+        search: queryAdd,
+      });
     }
   }
+
+  // Check if query finds no events
+  if (events.length === 0) {
+    return "No \"" + query + "\" events exist!";
+  }
+  // Check if queryAdd finds no events
+  if (queryAdd !== "" && eventsAdd.length === 0) {
+    return "No \"" + queryAdd + "\" events exist!";
+  }
+
+  // Check if query and queryAdd find no matching events below
+  var match = "no";
   
   // Check if times are null
   if (myNewStartTime === "" && myNewEndTime === "") {
     myNewStartTime = "00:00";
     myNewEndTime = "24:00";
   }
-  
+
   // Split strings into lists of hours and minutes
-  myNewStartTime = myNewStartTime.split(':');
+  myNewStartTime = myNewStartTime.split(":");
   myNewStartTime[0] = parseInt(myNewStartTime[0]);
   myNewStartTime[1] = parseInt(myNewStartTime[1]);
 
-  myNewEndTime = myNewEndTime.split(':');
+  myNewEndTime = myNewEndTime.split(":");
   myNewEndTime[0] = parseInt(myNewEndTime[0]);
-  myNewEndTime[1] = parseInt(myNewEndTime[1]);  
-  
+  myNewEndTime[1] = parseInt(myNewEndTime[1]);
+
   if (queryAdd !== "") {
     // Loop through each event found
     events.forEach(function(event) {
@@ -105,14 +133,22 @@ function updateEvents() {
             event,
             eventDate,
             myNewTitle,
-            myLocation,
+            myNewLocation,
             myNewDescription,
             myNewStartTime,
-            myNewEndTime
+            myNewEndTime,
+            myNewDryRun
           );
+          match = "yes";
         }
       });
     });
+    if (match === "no") {
+      return "No \"" + query + "\" and \"" + queryAdd + "\" events match!";
+    }
+    else {
+      return "Events updated!";
+    }
   } else {
     // Loop through each event found
     events.forEach(function(event) {
@@ -126,14 +162,15 @@ function updateEvents() {
         event,
         eventDate,
         myNewTitle,
-        myLocation,
+        myNewLocation,
         myNewDescription,
         myNewStartTime,
-        myNewEndTime
+        myNewEndTime,
+        myNewDryRun
       );
     });
+    return "Events updated!";
   }
-  return "Events updated!";
 }
 
 // Set the new details for the event
@@ -144,13 +181,26 @@ function setDetails(
   location,
   description,
   startTime,
-  endTime
+  endTime,
+  dryRun
 ) {
   eventDate = new Date(eventDate); // Cast "eventDate" as a function
-  event.setTitle(title);
-  event.setLocation(location);
-  event.setDescription(description);
-var dateStartTime = new Date(
+
+  if (!dryRun) {
+    event.setTitle(title);
+    event.setLocation(location);
+  }
+
+  if (!dryRun) {
+    // Check if description is a link
+    if (description.includes("http")) {
+      event.setDescription('<a href="' + (description) + '" target="_blank" >Agenda</a>');
+    } else {
+      event.setDescription(description);
+    }
+  } 
+  
+  var dateStartTime = new Date(
     eventDate.getFullYear(),
     eventDate.getMonth(),
     eventDate.getDate(),
@@ -164,7 +214,9 @@ var dateStartTime = new Date(
     endTime[0],
     endTime[1]
   );
-  event.setTime(new Date(dateStartTime), new Date(dateEndTime));
+  if (!dryRun) {
+    event.setTime(new Date(dateStartTime), new Date(dateEndTime));
+  }
 
   // Log which events were updated
   Logger.log("Updated an event on " + dateStartTime + ".");
