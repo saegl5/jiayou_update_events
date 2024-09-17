@@ -1,5 +1,6 @@
 // Update 加油 ("jiā yóu") Events
 // CAUTION: Event details will be overwritten.
+// Modify the following search parameters and event settings, then press |> Run
 
 // Search parameters
 var myCalendarName = "JIA YOU"; // change name to update events on an alternate calendar, must name it differently from the owner name
@@ -22,6 +23,7 @@ var myNewDryRun = false; // test script before running it in production
 
 
 
+// -----------------------------------------------------------------------------------
 // ** WARNING **
 // If the script below is modified improperly, running it may cause irrevocable damage.
 // The script below comes with absolutely no warranty. Use it at your own risk.
