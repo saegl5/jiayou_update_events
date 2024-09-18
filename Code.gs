@@ -4,10 +4,8 @@
 
 // Search parameters
 var myCalendarName = "JIA YOU"; // change name to update events on an alternate calendar, must name it differently from the owner name
-var myNewQuery = "New Meeting"; // Event you want to update, query ignores any extra spacing
-// personal observation: sometimes, queries find events that have details matching any word in the query
-// suggestion: specify queries as precisely as possible
-var myNewQueryAdd = "J Day"; // Input additional query to confine search, query ignores any extra spacing
+var myNewQuery = "New Meeting"; // Event you want to update
+var myNewQueryAdd = "J Day"; // Input additional query to confine search
 var myNewStart = ""; // Confine date range
 var myNewEnd = ""; // Confine date range
 // Accepted date formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY
