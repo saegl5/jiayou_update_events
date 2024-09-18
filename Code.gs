@@ -40,9 +40,6 @@ function updateEvents() {
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      // Logger.log(
-      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      // );
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
@@ -65,7 +62,7 @@ function updateEvents() {
     myNewEnd = new Date(myNewEnd); // excluded from search
     myNewEnd.setDate(myNewEnd.getDate() + 1); // include end date in search
 
-    // Search for events with title "New Meeting" between start and end dates
+    // Search for events with title between start and end dates
     var eventsAll = calendar.getEvents(myNewStart, myNewEnd);
     var events = [];
     for (var j = 0; j < eventsAll.length; j++) {
@@ -95,7 +92,7 @@ function updateEvents() {
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
-    // Search for events with title "New Meeting" between now and one year from now
+    // Search for events with title between now and one year from now
     var eventsAll = calendar.getEvents(now, oneYearFromNow);
     var events = [];
     for (var l = 0; l < eventsAll.length; l++) {
@@ -172,7 +169,7 @@ function updateEvents() {
 
         // Find matches
         if (eventDate === eventDateAdd) {
-          // Update details of events titled "New Meeting" on "J Day"
+          // Update details of events titled query on queryAdd
           setDetails(
             event,
             eventDate,
@@ -204,7 +201,7 @@ function updateEvents() {
       // Extract just the date part as a string
       eventDate = eventDate.toDateString();
 
-      // Update details of events titled "New Meeting" on any letter day
+      // Update details of events titled query on any letter day
       setDetails(
         event,
         eventDate,
