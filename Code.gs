@@ -235,8 +235,11 @@ function setDetails(
 ) {
   eventDate = new Date(eventDate); // Cast "eventDate" as a function
 
-  if (!dryRun) {
+  if (!dryRun && title != "") {
     event.setTitle(title);
+  }
+
+  if (!dryRun && location != "") {
     event.setLocation(location);
   }
 
@@ -252,7 +255,7 @@ function setDetails(
     }
   }
 
-  if (!dryRun) {
+  if (!dryRun && description !== "") {
     // Check if description is a link
     if (description.includes("http")) {
       event.setDescription(
