@@ -49,7 +49,7 @@ function updateEvents() {
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    Logger.log("No \"" + calendarName + "\" calendar exists!");
+    Logger.log('No "' + calendarName + '" calendar exists!');
     return null;
   }
 
@@ -70,7 +70,8 @@ function updateEvents() {
     var events = [];
     for (var j = 0; j < eventsAll.length; j++) {
       var event = eventsAll[j];
-      if (event.getTitle() === query) { // MORE RELIABLE!
+      if (event.getTitle() === query) {
+        // MORE RELIABLE!
         events.push(event);
       }
     }
@@ -119,12 +120,12 @@ function updateEvents() {
 
   // Check if query finds no events
   if (events.length === 0) {
-    Logger.log("No \"" + query + "\" events exist!");
+    Logger.log('No "' + query + '" events exist!');
     return null;
   }
   // Check if queryAdd finds no events
   if (queryAdd !== "" && eventsAdd.length === 0) {
-    Logger.log("No \"" + queryAdd + "\" events exist!");
+    Logger.log('No "' + queryAdd + '" events exist!');
     return null;
   }
 
@@ -156,14 +157,14 @@ function updateEvents() {
 
   if (queryAdd !== "") {
     // Loop through each event found
-    events.forEach(function(event) {
+    events.forEach(function (event) {
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
       eventDate = eventDate.toDateString();
 
       // Loop through each event found, again
-      eventsAdd.forEach(function(eventAdd) {
+      eventsAdd.forEach(function (eventAdd) {
         var eventDateAdd = eventAdd.getStartTime();
 
         // Extract just the date part as a string, again
@@ -189,16 +190,15 @@ function updateEvents() {
       });
     });
     if (match === "no") {
-      Logger.log("No \"" + query + "\" and \"" + queryAdd + "\" events match!");
+      Logger.log('No "' + query + '" and "' + queryAdd + '" events match!');
       return null;
-    }
-    else {
+    } else {
       Logger.log("Events updated!");
       return null;
     }
   } else {
     // Loop through each event found
-    events.forEach(function(event) {
+    events.forEach(function (event) {
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
@@ -258,12 +258,14 @@ function setDetails(
   if (!dryRun) {
     // Check if description is a link
     if (description.includes("http")) {
-      event.setDescription('<a href="' + (description) + '" target="_blank" >Agenda</a>');
+      event.setDescription(
+        '<a href="' + description + '" target="_blank" >Agenda</a>'
+      );
     } else {
       event.setDescription(description);
     }
-  } 
-  
+  }
+
   var dateStartTime = new Date(
     eventDate.getFullYear(),
     eventDate.getMonth(),

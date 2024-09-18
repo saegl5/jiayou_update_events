@@ -14,7 +14,7 @@ CAUTION: Event details will be overwritten.
 
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
 2. Copy and paste [the script](./Code.gs) into the editor.
-3. Modify the calendar name. (By default, it is "JIA YOU." Recommended, if you had created events on an alternate calender.  **_Must name it differently from the owner name, otherwise the script will not update events._**)
+3. Modify the calendar name. (By default, it is "JIA YOU." Recommended, if you had created events on an alternate calender. **_Must name it differently from the owner name, otherwise the script will not update events._**)
 4. Modify the search query. (By default, it is "New Meeting." Specifically, `myNewQuery = "New Meeting";`)
 5. Modify the events' title, location, description, start time, and end time. (By default, events are newly titled "Updated Meeting," located at "Updated location," described as "Updated agenda," start at 9 AM, and end at 10 AM. If you input a URL for the description, text to display will be "Agenda.")
 6. Confine the search by inputting an additional query.
