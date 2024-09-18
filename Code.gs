@@ -130,7 +130,7 @@ function updateEvents() {
   }
 
   // Check if query and queryAdd find no matching events below
-  var match = "no";
+  var match = false;
 
   // Process each guest list
   if (myGuestsAdd !== "") {
@@ -185,11 +185,11 @@ function updateEvents() {
             myNewEndTime,
             myNewDryRun
           );
-          match = "yes";
+          match = true;
         }
       });
     });
-    if (match === "no") {
+    if (match === false) {
       Logger.log('No "' + query + '" and "' + queryAdd + '" events match!');
       return null;
     } else {
