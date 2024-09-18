@@ -23,10 +23,6 @@ var myNewEndTime = "10:00";
 // Accepted time format: 24-hour
 var myNewDryRun = false; // test script before running it in production
 
-
-
-
-
 // -----------------------------------------------------------------------------------
 // ** WARNING **
 // If the script below is modified improperly, running it may cause irrevocable damage.
@@ -137,20 +133,18 @@ function updateEvents() {
     myGuestsDel = myGuestsDel.split(", ");
   }
 
-  // Check if times are null
-  if (myNewStartTime === "" && myNewEndTime === "") {
-    myNewStartTime = "00:00";
-    myNewEndTime = "24:00";
+  // Split strings into lists of hours and minutes
+  if (myNewStartTime !== "") {
+    myNewStartTime = myNewStartTime.split(":");
+    myNewStartTime[0] = parseInt(myNewStartTime[0]);
+    myNewStartTime[1] = parseInt(myNewStartTime[1]);
   }
 
-  // Split strings into lists of hours and minutes
-  myNewStartTime = myNewStartTime.split(":");
-  myNewStartTime[0] = parseInt(myNewStartTime[0]);
-  myNewStartTime[1] = parseInt(myNewStartTime[1]);
-
-  myNewEndTime = myNewEndTime.split(":");
-  myNewEndTime[0] = parseInt(myNewEndTime[0]);
-  myNewEndTime[1] = parseInt(myNewEndTime[1]);
+  if (myNewEndTime !== "") {
+    myNewEndTime = myNewEndTime.split(":");
+    myNewEndTime[0] = parseInt(myNewEndTime[0]);
+    myNewEndTime[1] = parseInt(myNewEndTime[1]);
+  }
 
   if (queryAdd !== "") {
     // Loop through each event found
@@ -169,6 +163,22 @@ function updateEvents() {
 
         // Find matches
         if (eventDate === eventDateAdd) {
+          // Check if times are null
+          if (myNewStartTime === "") {
+            myNewStartTime = event.getStartTime();
+            myNewStartTime = myNewStartTime.toTimeString().slice(0, 5);
+            myNewStartTime = myNewStartTime.split(":");
+            myNewStartTime[0] = parseInt(myNewStartTime[0]);
+            myNewStartTime[1] = parseInt(myNewStartTime[1]);
+          }
+          if (myNewEndTime === "") {
+            myNewEndTime = event.getEndTime();
+            myNewEndTime = myNewEndTime.toTimeString().slice(0, 5);
+            myNewEndTime = myNewEndTime.split(":");
+            myNewEndTime[0] = parseInt(myNewEndTime[0]);
+            myNewEndTime[1] = parseInt(myNewEndTime[1]);
+          }
+
           // Update details of events titled query on queryAdd
           setDetails(
             event,
@@ -200,6 +210,22 @@ function updateEvents() {
 
       // Extract just the date part as a string
       eventDate = eventDate.toDateString();
+
+      // Check if times are null
+      if (myNewStartTime === "") {
+        myNewStartTime = event.getStartTime();
+        myNewStartTime = myNewStartTime.toTimeString().slice(0, 5);
+        myNewStartTime = myNewStartTime.split(":");
+        myNewStartTime[0] = parseInt(myNewStartTime[0]);
+        myNewStartTime[1] = parseInt(myNewStartTime[1]);
+      }
+      if (myNewEndTime === "") {
+        myNewEndTime = event.getEndTime();
+        myNewEndTime = myNewEndTime.toTimeString().slice(0, 5);
+        myNewEndTime = myNewEndTime.split(":");
+        myNewEndTime[0] = parseInt(myNewEndTime[0]);
+        myNewEndTime[1] = parseInt(myNewEndTime[1]);
+      }
 
       // Update details of events titled query on any letter day
       setDetails(
