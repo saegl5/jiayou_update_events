@@ -10,6 +10,7 @@ function doGet() {
 
 function updateEvents(
   calendarName,
+  calendarNameAlt,
   query,
   queryAdd,
   start,
@@ -25,6 +26,7 @@ function updateEvents(
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
   var calendarId = ""; // Initially null
+  var calendarIdAlt = ""; // Initially null
 
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
@@ -38,8 +40,25 @@ function updateEvents(
     return 'No "' + calendarName + '" calendar exists!';
   }
 
+  // Repeat loop for alternate calendar (if one exists)
+  if (calendarNameAlt !== "") {
+    for (var j = 0; j < calendars.length; j++) {
+      if (calendars[j].getName() === calendarNameAlt) {
+        calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
+      }
+    }
+  }
+
+  // Check if loop finds no calendar
+  if (calendarNameAlt !== "" && calendarIdAlt === "") {
+    return 'No "' + calendarNameAlt + '" calendar exists!';
+  }
+
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
+  if (calendarNameAlt !== "") {
+    var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
+  }
 
   // Check for null dates
   if (start !== "" && end !== "") {
@@ -49,7 +68,12 @@ function updateEvents(
     end.setDate(end.getDate() + 1); // include end date in search
 
     // Search for events with title between start and end dates
-    var eventsAll = calendar.getEvents(start, end);
+    if (calendarNameAlt !== "") {
+      var eventsAll = calendarAlt.getEvents(start, end);
+    }
+    else {
+      var eventsAll = calendar.getEvents(start, end);
+    }
     var events = [];
     for (var j = 0; j < eventsAll.length; j++) {
       var event = eventsAll[j];
@@ -59,7 +83,7 @@ function updateEvents(
       }
     }
 
-    // Check additional query
+    // Check additional query, always searches first calendar
     if (queryAdd !== "") {
       var eventsAddAll = calendar.getEvents(start, end);
       var eventsAdd = [];
@@ -77,7 +101,12 @@ function updateEvents(
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
     // Search for events with title between now and one year from now
-    var eventsAll = calendar.getEvents(now, oneYearFromNow);
+    if (calendarNameAlt !== "") {
+      var eventsAll = calendarAlt.getEvents(now, oneYearFromNow);
+    }
+    else {
+      var eventsAll = calendar.getEvents(now, oneYearFromNow);
+    }
     var events = [];
     for (var l = 0; l < eventsAll.length; l++) {
       var event = eventsAll[l];
@@ -86,7 +115,7 @@ function updateEvents(
       }
     }
 
-    // Check additional query
+    // Check additional query, always searches first calendar
     if (queryAdd !== "") {
       var eventsAddAll = calendar.getEvents(now, oneYearFromNow);
       var eventsAdd = [];

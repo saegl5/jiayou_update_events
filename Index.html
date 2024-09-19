@@ -94,9 +94,20 @@
           value="JIA YOU"
           required
         />
-        <text>Change name to update events on an alternate calendar</text><br />
-        <text>Must name it differently from the owner name</text>
+        <text>Again, calendar must already exist</text>
         <br /><br />
+
+        <label for="calendarNameAlt">Alternate calendar name:</label>
+        <input
+          type="text"
+          id="calendarNameAlt"
+          name="calendarNameAlt"
+          placeholder="Optional"
+        />
+        <text
+          >If you had created events on an alternate calendar</text
+        ><br />
+        <br />
 
         <label for="query">Query:</label>
         <input
@@ -241,6 +252,8 @@
           event.preventDefault(); // Prevents the form from submitting the traditional way
 
           var calendarName = document.getElementById("calendarName").value;
+          var calendarNameAlt =
+            document.getElementById("calendarNameAlt").value;
           var query = document.getElementById("query").value;
           var queryAdd = document.getElementById("queryAdd").value;
           var start = document.getElementById("start").value;
@@ -264,6 +277,7 @@
             })
             .updateEvents(
               calendarName,
+              calendarNameAlt,
               query,
               queryAdd,
               start,
