@@ -15,6 +15,8 @@ function updateEvents(
   start,
   end,
   title,
+  guestsAdd,
+  guestsDel,
   location,
   description,
   startTime,
@@ -27,17 +29,14 @@ function updateEvents(
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      // Logger.log(
-      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      // );
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    return "No \"" + calendarName + "\" calendar exists!";
-  }  
+    return 'No "' + calendarName + '" calendar exists!';
+  }
 
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
@@ -49,12 +48,27 @@ function updateEvents(
     end = new Date(end); // excluded from search
     end.setDate(end.getDate() + 1); // include end date in search
 
-    // Search for events with title "New Meeting" between start and end dates
-    var events = calendar.getEvents(start, end, { search: query });
+    // Search for events with title between start and end dates
+    var eventsAll = calendar.getEvents(start, end);
+    var events = [];
+    for (var j = 0; j < eventsAll.length; j++) {
+      var event = eventsAll[j];
+      if (event.getTitle() === query) {
+        // MORE RELIABLE THAN `{ search: query }`!
+        events.push(event);
+      }
+    }
 
     // Check additional query
     if (queryAdd !== "") {
-      var eventsAdd = calendar.getEvents(start, end, { search: queryAdd });
+      var eventsAddAll = calendar.getEvents(start, end);
+      var eventsAdd = [];
+      for (var k = 0; k < eventsAddAll.length; k++) {
+        var event = eventsAddAll[k];
+        if (event.getTitle() === queryAdd) {
+          eventsAdd.push(event);
+        }
+      }
     }
   } else {
     // Set the search parameters
@@ -62,54 +76,72 @@ function updateEvents(
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
-    // Search for events with title "New Meeting" between now and one year from now
-    var events = calendar.getEvents(now, oneYearFromNow, { search: query });
+    // Search for events with title between now and one year from now
+    var eventsAll = calendar.getEvents(now, oneYearFromNow);
+    var events = [];
+    for (var l = 0; l < eventsAll.length; l++) {
+      var event = eventsAll[l];
+      if (event.getTitle() === query) {
+        events.push(event);
+      }
+    }
 
     // Check additional query
     if (queryAdd !== "") {
-      var eventsAdd = calendar.getEvents(now, oneYearFromNow, {
-        search: queryAdd,
-      });
+      var eventsAddAll = calendar.getEvents(now, oneYearFromNow);
+      var eventsAdd = [];
+      for (var m = 0; m < eventsAddAll.length; m++) {
+        var event = eventsAddAll[m];
+        if (event.getTitle() === queryAdd) {
+          eventsAdd.push(event);
+        }
+      }
     }
   }
 
   // Check if query finds no events
   if (events.length === 0) {
-    return "No \"" + query + "\" events exist!";
+    return 'No "' + query + '" events exist!';
   }
   // Check if queryAdd finds no events
   if (queryAdd !== "" && eventsAdd.length === 0) {
-    return "No \"" + queryAdd + "\" events exist!";
+    return 'No "' + queryAdd + '" events exist!';
   }
 
   // Check if query and queryAdd find no matching events below
-  var match = "no";
-  
-  // Check if times are null
-  if (startTime === "" && endTime === "") {
-    startTime = "00:00";
-    endTime = "24:00";
+  var match = false;
+
+  // Process each guest list
+  if (myGuestsAdd !== "") {
+    myGuestsAdd = myGuestsAdd.split(", ");
+  }
+  if (myGuestsDel !== "") {
+    myGuestsDel = myGuestsDel.split(", ");
   }
 
   // Split strings into lists of hours and minutes
-  startTime = startTime.split(":");
-  startTime[0] = parseInt(startTime[0]);
-  startTime[1] = parseInt(startTime[1]);
+  if (startTime !== "") {
+    startTime = startTime.split(":");
+    startTime[0] = parseInt(startTime[0]);
+    startTime[1] = parseInt(startTime[1]);
+  }
 
-  endTime = endTime.split(":");
-  endTime[0] = parseInt(endTime[0]);
-  endTime[1] = parseInt(endTime[1]);
+  if (endTime !== "") {
+    endTime = endTime.split(":");
+    endTime[0] = parseInt(endTime[0]);
+    endTime[1] = parseInt(endTime[1]);
+  }
 
   if (queryAdd !== "") {
     // Loop through each event found
-    events.forEach(function(event) {
+    events.forEach(function (event) {
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
       eventDate = eventDate.toDateString();
 
       // Loop through each event found, again
-      eventsAdd.forEach(function(eventAdd) {
+      eventsAdd.forEach(function (eventAdd) {
         var eventDateAdd = eventAdd.getStartTime();
 
         // Extract just the date part as a string, again
@@ -117,40 +149,75 @@ function updateEvents(
 
         // Find matches
         if (eventDate === eventDateAdd) {
-          // Update details of events titled "New Meeting" on "J Day"
+          // Check if times are null
+          if (startTime === "") {
+            startTime = event.getStartTime();
+            startTime = startTime.toTimeString().slice(0, 5);
+            startTime = startTime.split(":");
+            startTime[0] = parseInt(startTime[0]);
+            startTime[1] = parseInt(startTime[1]);
+          }
+          if (endTime === "") {
+            endTime = event.getEndTime();
+            endTime = endTime.toTimeString().slice(0, 5);
+            endTime = endTime.split(":");
+            endTime[0] = parseInt(endTime[0]);
+            endTime[1] = parseInt(endTime[1]);
+          }
+
+          // Update details of events titled query on queryAdd
           setDetails(
             event,
             eventDate,
             title,
+            myGuestsAdd,
+            myGuestsDel,
             location,
             description,
             startTime,
             endTime,
             dryRun
           );
-          match = "yes";
+          match = true;
         }
       });
     });
-    if (match === "no") {
-      return "No \"" + query + "\" and \"" + queryAdd + "\" events match!";
-    }
-    else {
+    if (match === false) {
+      return 'No "' + query + '" and "' + queryAdd + '" events match!';
+    } else {
       return "Events updated!";
     }
   } else {
     // Loop through each event found
-    events.forEach(function(event) {
+    events.forEach(function (event) {
       var eventDate = event.getStartTime();
 
       // Extract just the date part as a string
       eventDate = eventDate.toDateString();
 
-      // Update details of events titled "New Meeting" on any letter day
+      // Check if times are null
+      if (startTime === "") {
+        startTime = event.getStartTime();
+        startTime = startTime.toTimeString().slice(0, 5);
+        startTime = startTime.split(":");
+        startTime[0] = parseInt(startTime[0]);
+        startTime[1] = parseInt(startTime[1]);
+      }
+      if (endTime === "") {
+        endTime = event.getEndTime();
+        endTime = endTime.toTimeString().slice(0, 5);
+        endTime = endTime.split(":");
+        endTime[0] = parseInt(endTime[0]);
+        endTime[1] = parseInt(endTime[1]);
+      }
+
+      // Update details of events titled query on any letter day
       setDetails(
         event,
         eventDate,
         title,
+        myGuestsAdd,
+        myGuestsDel,
         location,
         description,
         startTime,
@@ -162,10 +229,13 @@ function updateEvents(
   }
 }
 
+// Set the new details for the event
 function setDetails(
   event,
   eventDate,
   title,
+  guestsAdd,
+  guestsDel,
   location,
   description,
   startTime,
@@ -174,20 +244,37 @@ function setDetails(
 ) {
   eventDate = new Date(eventDate); // Cast "eventDate" as a function
 
-  if (!dryRun) {
+  if (!dryRun && title != "") {
     event.setTitle(title);
+  }
+
+  if (!dryRun && location != "") {
     event.setLocation(location);
   }
 
-  if (!dryRun) {
+  if (guestsAdd.length !== 0 && !dryRun) {
+    for (var n = 0; n < guestsAdd.length; n++) {
+      event.addGuest(String(guestsAdd[n]));
+    }
+  }
+
+  if (guestsDel.length !== 0 && !dryRun) {
+    for (var o = 0; o < guestsDel.length; o++) {
+      event.removeGuest(String(guestsDel[o]));
+    }
+  }
+
+  if (!dryRun && description !== "") {
     // Check if description is a link
     if (description.includes("http")) {
-      event.setDescription('<a href="' + (description) + '" target="_blank" >Agenda</a>');
+      event.setDescription(
+        '<a href="' + description + '" target="_blank" >Agenda</a>'
+      );
     } else {
       event.setDescription(description);
     }
-  } 
-  
+  }
+
   var dateStartTime = new Date(
     eventDate.getFullYear(),
     eventDate.getMonth(),
