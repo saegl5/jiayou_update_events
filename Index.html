@@ -14,7 +14,8 @@
       }
       select,
       input[type="text"],
-      input[type="submit"] {
+      input[type="submit"],
+      textarea {
         display: block;
         margin-bottom: 0px;
         width: 100%;
@@ -23,6 +24,7 @@
       }
       select,
       input,
+      textarea,
       div {
         font-family: "Courier New", Courier, monospace;
         font-size: medium;
@@ -92,7 +94,7 @@
           value="JIA YOU"
           required
         />
-        <text>Change name to update events on an alternate calendar</text><br>
+        <text>Change name to update events on an alternate calendar</text><br />
         <text>Must name it differently from the owner name</text>
         <br /><br />
 
@@ -154,13 +156,23 @@
         <br />
 
         <label for="guestsAdd">Add guests:</label>
-        <input type="text" id="guestsAdd" name="guestsAdd" placeholder="Optional" />
+        <textarea
+          type="text"
+          id="guestsAdd"
+          name="guestsAdd"
+          placeholder="Optional"
+        />
         <text>Accepted format: comma-separated list of email addresses</text>
         <!-- send invitation emails manually -->
         <br /><br />
 
         <label for="guestsDel">Remove guests:</label>
-        <input type="text" id="guestsDel" name="guestsDel" placeholder="Optional" />
+        <textarea
+          type="text"
+          id="guestsDel"
+          name="guestsDel"
+          placeholder="Optional"
+        />
         <text>Accepted format: comma-separated list of email addresses</text>
         <!-- Ignores guest if their email address is not found -->
         <br /><br />
