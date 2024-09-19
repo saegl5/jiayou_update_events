@@ -112,11 +112,11 @@ function updateEvents(
   var match = false;
 
   // Process each guest list
-  if (myGuestsAdd !== "") {
-    myGuestsAdd = myGuestsAdd.split(", ");
+  if (guestsAdd !== "") {
+    guestsAdd = guestsAdd.split(", ");
   }
-  if (myGuestsDel !== "") {
-    myGuestsDel = myGuestsDel.split(", ");
+  if (guestsDel !== "") {
+    guestsDel = guestsDel.split(", ");
   }
 
   // Split strings into lists of hours and minutes
@@ -170,8 +170,8 @@ function updateEvents(
             event,
             eventDate,
             title,
-            myGuestsAdd,
-            myGuestsDel,
+            guestsAdd,
+            guestsDel,
             location,
             description,
             startTime,
@@ -216,8 +216,8 @@ function updateEvents(
         event,
         eventDate,
         title,
-        myGuestsAdd,
-        myGuestsDel,
+        guestsAdd,
+        guestsDel,
         location,
         description,
         startTime,
