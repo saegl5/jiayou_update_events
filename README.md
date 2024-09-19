@@ -1,4 +1,4 @@
-# Update 加油 ("jiā yóu") Events
+# Update 加油 ("jiā yóu") Events (Deprecated)
 
 Google Web app for batch updating events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. These events are not recurring events, so without a batch script one would need to update these events manually.
 
