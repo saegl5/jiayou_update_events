@@ -71,8 +71,7 @@ function updateEvents(
     // Search for events with title between start and end dates
     if (calendarNameAlt !== "") {
       var eventsAll = calendarAlt.getEvents(start, end);
-    }
-    else {
+    } else {
       var eventsAll = calendar.getEvents(start, end);
     }
     var events = [];
@@ -104,8 +103,7 @@ function updateEvents(
     // Search for events with title between now and one year from now
     if (calendarNameAlt !== "") {
       var eventsAll = calendarAlt.getEvents(now, oneYearFromNow);
-    }
-    else {
+    } else {
       var eventsAll = calendar.getEvents(now, oneYearFromNow);
     }
     var events = [];
