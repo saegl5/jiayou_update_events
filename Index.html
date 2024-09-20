@@ -33,7 +33,8 @@
       h3,
       label,
       input[type="submit"],
-      text {
+      text,
+      div[id="title"] {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
           sans-serif;
@@ -57,9 +58,10 @@
         border-radius: 5px;
         background-color: #f8f8f8;
       }
-      text[id="search"],
-      text[id="settings"] {
-        font-style: normal;
+      div[id="title"] {
+        font-weight: bold;
+        font-size: smaller;
+        color: darkgrey;
       }
       input[type="checkbox"] {
         vertical-align: bottom;
@@ -70,20 +72,20 @@
         color: black;
         border-radius: 5px;
       }
+      h1, h3 {
+        text-align: center;
+      }
+      h3 {
+        color: orange;
+      }
     </style>
   </head>
   <body>
-    <h1><center>Update 加油 ("jiā yóu") Events</center></h1>
-    <h3>
-      <center>
-        <font style="color: orange"
-          >CAUTION: Event details will be overwritten.</font
-        >
-      </center>
-    </h3>
+    <h1>Update 加油 ("jiā yóu") Events</h1>
+    <h3>CAUTION: Event details will be overwritten.</h3>
     <form id="calendarForm">
       <div id="search">
-        <text id="search"><center>Search Parameters</center></text>
+        <div id="title">Search Parameters</div>
         <br />
 
         <label for="calendarName">Calendar name:</label>
@@ -152,7 +154,7 @@
       <br />
 
       <div id="settings">
-        <text id="settings"><center>Event Settings</center></text>
+        <div id="title">Event Settings</div>
         <br />
 
         <label for="title">Title:</label>
