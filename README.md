@@ -35,7 +35,7 @@ CAUTION: Event details will be overwritten.
 
 ## Note
 
-App script does not take into account all date scenarios; feature was not added because the Web app has been deprecated.
+App script does not take into account all date scenarios and it does not include additional error checks; features were not added because the Web app has been deprecated.
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
