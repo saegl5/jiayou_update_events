@@ -8,7 +8,7 @@
         --border: silver;
         --background: Gainsboro;
         --foreground: #f8f8f8;
-        --title: darkgrey;
+        --section: darkgrey;
         --description: darkgrey;
       }
       form {
@@ -41,7 +41,7 @@
       label,
       input[type="submit"],
       text,
-      div[id="title"] {
+      div[id="section"] {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
           sans-serif;
@@ -65,10 +65,10 @@
         border-radius: 5px;
         background-color: var(--foreground);
       }
-      div[id="title"] {
+      div[id="section"] {
         font-weight: bold;
         font-size: smaller;
-        color: var(--title);
+        color: var(--section);
       }
       input[type="checkbox"] {
         vertical-align: bottom;
@@ -93,7 +93,7 @@
     <h3>CAUTION: Event details will be overwritten.</h3>
     <form id="calendarForm">
       <div id="search">
-        <div id="title">Search Parameters</div>
+        <div id="section">Search Parameters</div>
         <br />
 
         <label for="calendarName">Calendar name:</label>
@@ -160,7 +160,7 @@
       <br />
 
       <div id="settings">
-        <div id="title">Event Settings</div>
+        <div id="section">Event Settings</div>
         <br />
 
         <label for="title">Title:</label>
@@ -224,14 +224,13 @@
           id="startTime"
           name="startTime"
           value="9:00"
-          required
         />
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
         <br /><br />
 
         <label for="endTime">End time:</label>
-        <input type="text" id="endTime" name="endTime" value="10:00" required />
+        <input type="text" id="endTime" name="endTime" value="10:00" />
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
         <br /><br />
