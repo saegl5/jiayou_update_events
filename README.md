@@ -33,5 +33,9 @@ CAUTION: Event details will be overwritten.
 11. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
 12. Press submit. (Requires permission to make changes to events and another authorization. **_Note also that updating calendar events may be subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
 
+## Note
+
+App script does not take into account all date scenarios; feature was not added because the Web app has been deprecated.
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
