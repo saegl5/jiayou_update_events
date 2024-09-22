@@ -36,7 +36,7 @@ CAUTION: Event details will be overwritten.
 ## Notes
 
 - App script does not take into account all date scenarios and it does not include additional error checks; features were not added because the Web app has been deprecated.
-- Index file does not include consolidations; features were not added because the Web app has been deprecated.
+- Index file does not include consolidations and support link; features were not added because the Web app has been deprecated.
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
