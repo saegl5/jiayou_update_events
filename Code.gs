@@ -323,4 +323,5 @@ function setDetails(
 
   // Log which events were updated
   Logger.log('Updated "' + oldTitle + '" on ' + dateStartTime + "!");
+  return null;
 }
