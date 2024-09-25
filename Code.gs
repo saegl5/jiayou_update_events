@@ -272,6 +272,7 @@ function setDetails(
 ) {
   eventDate = new Date(eventDate); // Cast "eventDate" as a function
 
+  var oldTitle = event.getTitle();
   if (!dryRun && title != "") {
     event.setTitle(title);
   }
@@ -322,6 +323,6 @@ function setDetails(
   }
 
   // Log which events were updated
-  Logger.log("Updated an event on " + dateStartTime + ".");
+  Logger.log('Updated "' + oldTitle + '" on ' + dateStartTime + "!");
   return null;
 }
